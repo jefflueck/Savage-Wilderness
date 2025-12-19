@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: 7c1a9f6ad845d42748275de09da2aea8
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - WoodsNightAmbience: {fileID: 8300000, guid: c36fa0dc4d3240942aefe806fa3d4d27, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

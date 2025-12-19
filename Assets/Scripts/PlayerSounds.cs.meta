@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 7485e811151e84e318cb483f3b55fd42
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - PlayerWalkSound: {fileID: 8300000, guid: 35e806fa0fdf77e47a3235020be266a0, type: 3}
+  - PlayerRunSound: {fileID: 8300000, guid: ac523206fef37f54d94ac272b21c9dc0, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

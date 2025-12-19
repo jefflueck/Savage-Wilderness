@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 6149dafa4a1564bfeb2a495cb96248b6
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - WolfHowlSoundOne: {fileID: 8300000, guid: ace43e6105df17a44b2462a54cea32f9, type: 3}
+  - WolfHowlSoundTwo: {fileID: 8300000, guid: 508e15ffc86c1a145bcff223a07597b0, type: 3}
+  - WolfGrowlSoundOne: {fileID: 8300000, guid: 764f40274c6887c45ac902a430f7d878, type: 3}
+  - WolfGrowlSoundTwo: {fileID: 8300000, guid: 3a8bd1f11d7652247aea5fe46c0edd1f, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
