@@ -12,45 +12,40 @@ public class PlayerSounds : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    // play walking sound when tag "Player" is moving without Shift key held down
     void Update()
     {
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) ||
-            Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow) ||
-            Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
+        bool isMoving = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)
+                        || Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow)
+                        || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow);
+
+        bool isRunning = (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) && isMoving;
+
+        if (isRunning)
         {
-            if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+            if (audioSource.clip != PlayerRunSound)
             {
-                // Running
-                if (audioSource.clip != PlayerRunSound)
-                {
-                    audioSource.clip = PlayerRunSound;
-                    audioSource.loop = true;
-                    audioSource.Play();
-                    audioSource.volume = 0.5f; // Adjust volume for running sound
-                }
+                audioSource.clip = PlayerRunSound;
+                audioSource.loop = true;
+                audioSource.volume = 0.5f;
+                audioSource.Play();
             }
-            else
+        }
+        else if (isMoving)
+        {
+            if (audioSource.clip != PlayerWalkSound)
             {
-                // Walking
-                if (audioSource.clip != PlayerWalkSound)
-                {
-                    audioSource.clip = PlayerWalkSound;
-                    audioSource.loop = true;
-                    audioSource.Play();
-                    audioSource.volume = 0.5f; // Adjust volume for walking sound
-                }
+                audioSource.clip = PlayerWalkSound;
+                audioSource.loop = true;
+                audioSource.volume = 0.5f;
+                audioSource.Play();
             }
         }
         else
         {
-            // Not moving
             if (audioSource.isPlaying)
             {
                 audioSource.Stop();
             }
         }
     }
-
-
 }
