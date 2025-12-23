@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class PlayerSounds : MonoBehaviour
@@ -90,6 +91,17 @@ public class PlayerSounds : MonoBehaviour
 
         // Debug.Log("Player is on terrain layer index: " + dominantLayer);
     }
+
+    // if player falls below y = -10, restart level
+    void LateUpdate()
+    {
+        if (transform.position.y < 90f)
+        {
+            Destroy(gameObject);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+    }
+
 
 
 }

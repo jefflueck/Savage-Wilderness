@@ -21,15 +21,16 @@ public class WolfSounds : MonoBehaviour
 
     public float moveSpeed;
 
-    public GameObject wolfWalkingObject;
 
     private Transform playerTransform;
 
     private bool isCheckingDistance = false;
 
+
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+
         playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
         StartCoroutine(checkDistanceCoroutine());
 
