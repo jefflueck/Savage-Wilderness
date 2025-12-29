@@ -100,8 +100,7 @@ public class PlayerSounds : MonoBehaviour
             Destroy(gameObject);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+
     }
-
-
 
 }

@@ -37,7 +37,7 @@ public class AnimalSpawn : MonoBehaviour
             // 4. Set the Y position to the terrain height plus an optional offset
             spawnPosition.y = terrainHeight + terrain.transform.position.y;
             // 5. Instantiate the object at the calculated position
-            Instantiate(objectToSpawn, spawnPosition, Quaternion.identity);
+            Instantiate(objectToSpawn, spawnPosition, Quaternion.identity, this.transform);
         }
     }
 }

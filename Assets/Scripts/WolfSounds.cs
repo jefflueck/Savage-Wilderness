@@ -10,6 +10,7 @@ public class WolfSounds : MonoBehaviour
     public AudioClip WolfHowlSoundTwo;
     public AudioClip WolfGrowlSoundOne;
     public AudioClip WolfGrowlSoundTwo;
+    public AudioClip WolfAttackSound;
 
     private AudioClip audioClip;
 
@@ -22,15 +23,20 @@ public class WolfSounds : MonoBehaviour
     public float moveSpeed;
 
 
+
     private Transform playerTransform;
 
     private bool isCheckingDistance = false;
+
+    public Terrain terrain;
+    private Rigidbody rb;
 
 
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-
+        rb = GetComponent<Rigidbody>();
+        terrain = Terrain.activeTerrain;
         playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
         StartCoroutine(checkDistanceCoroutine());
 
@@ -44,16 +50,28 @@ public class WolfSounds : MonoBehaviour
             StartCoroutine(checkDistanceCoroutine());
             //    move wolfs at a set random interval
             moveSpeed = Random.Range(5f, 70f);
+
             // move towards player
             if (playerTransform == null) return;
-            Vector3 direction = (playerTransform.position - transform.position).normalized;
-            // do not the y axis movement be below terrain
+            Vector3 direction = (playerTransform.position - rb.position).normalized;
             direction.y = 0;
-            transform.Translate(direction * moveSpeed * Time.deltaTime, Space.World);
-            // keep wolf pointed at player
-            Quaternion toRotation = Quaternion.LookRotation(direction, Vector3.up);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, 500 * Time.deltaTime);
+            Vector3 targetPos = rb.position + direction * moveSpeed * Time.deltaTime;
 
+            // Terrain height
+            float terrainY = terrain.SampleHeight(targetPos) + terrain.transform.position.y;
+            targetPos.y = terrainY;
+
+            rb.MovePosition(targetPos);
+
+            // Terrain normal
+            Vector3 terrainLocalPos = targetPos - terrain.transform.position;
+            float normX = terrainLocalPos.x / terrain.terrainData.size.x;
+            float normZ = terrainLocalPos.z / terrain.terrainData.size.z;
+            Vector3 terrainNormal = terrain.terrainData.GetInterpolatedNormal(normX, normZ);
+
+            // Upright rotation
+            Quaternion targetRotation = Quaternion.LookRotation(direction, terrainNormal);
+            rb.MoveRotation(targetRotation);
         }
     }
 
@@ -102,11 +120,17 @@ public class WolfSounds : MonoBehaviour
                 audioSource.clip = audioClip;
                 audioSource.Play();
             }
+            if (distance <= 2 && !audioSource.isPlaying)
+            {
+                // play attack sound
+                audioClip = WolfAttackSound;
+                audioSource.clip = audioClip;
+                audioSource.Play();
+            }
+
+            yield return new WaitForSeconds(5.0f);
+            isCheckingDistance = false;
         }
 
-        yield return new WaitForSeconds(5.0f);
-        isCheckingDistance = false;
     }
-
 }
-
